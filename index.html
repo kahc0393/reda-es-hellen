@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redações da Prof. Hellen</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #1e3a8a, #db2777);
+    }
+  </style>
+</head>
+<body class="text-white min-h-screen flex">
+  <!-- Barra lateral -->
+  <aside class="w-64 bg-black/80 backdrop-blur-md p-6 flex flex-col items-start space-y-4 min-h-screen">
+    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="Professora" class="w-20 h-20 rounded-full" />
+    <h1 class="text-2xl font-bold text-pink-400">Prof. Hellen</h1>
+    <nav class="flex flex-col gap-3 mt-6 w-full">
+      <a href="#temas" class="hover:text-pink-300">📘 Temas</a>
+      <a href="#form" class="hover:text-pink-300">✉️ Enviar redação</a>
+      <a href="#notas" class="hover:text-pink-300">📊 Notas</a>
+    </nav>
+  </aside>
+
+  <!-- Conteúdo principal -->
+  <main class="flex-1 p-6">
+    <!-- Temas de redação -->
+    <section id="temas" class="mb-10">
+      <h2 class="text-2xl font-bold text-white mb-4">Temas disponíveis</h2>
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="bg-white/10 border border-white/30 rounded-xl p-4 shadow">
+          <h3 class="text-xl font-semibold text-pink-300 mb-2">Desafios e perspectivas da evasão escolar no Brasil</h3>
+          <p class="text-sm">+30 EXP • EDUCAÇÃO</p>
+          <a href="pdfs/desafios-evasao-escolar.pdf" target="_blank" class="text-pink-200 underline text-sm block mt-2">📄 Ver textos motivadores (PDF)</a>
+          <button onclick="selecionarTema('Desafios e perspectivas da evasão escolar no Brasil')" class="mt-3 bg-pink-600 px-4 py-2 rounded hover:bg-pink-700">Selecionar tema</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formulário de envio -->
+    <section id="form" class="bg-white/10 backdrop-blur-md shadow-md rounded-xl p-6">
+      <h2 class="text-xl font-bold text-white mb-4">Enviar redação</h2>
+      <form action="/enviar" method="POST" enctype="multipart/form-data">
+        <label class="block mb-2 font-semibold">Seu nome:</label>
+        <input name="nome" type="text" class="w-full border border-pink-400 p-2 rounded mb-4 bg-white text-black" required />
+
+        <label class="block mb-2 font-semibold">Tema escolhido:</label>
+        <input id="tema" name="tema" type="text" class="w-full border border-pink-400 p-2 rounded mb-4 bg-gray-100 text-black" readonly required />
+
+        <label class="block mb-2 font-semibold">Como deseja enviar?</label>
+        <select id="modoEnvio" name="tipo" onchange="alternarModoEnvio()" class="w-full border border-pink-400 p-2 rounded mb-4 text-black">
+          <option value="texto">Digitar redação</option>
+          <option value="arquivo">Enviar imagem/PDF</option>
+        </select>
+
+        <div id="campoTexto">
+          <label class="block mb-2 font-semibold">Sua redação:</label>
+          <textarea name="redacao" id="redacao" rows="6" class="w-full border border-pink-400 p-2 rounded mb-4 text-black"></textarea>
+        </div>
+
+        <div id="campoArquivo" class="hidden">
+          <label class="block mb-2 font-semibold">Arquivo da redação (PDF ou imagem):</label>
+          <input name="arquivo" id="arquivo" type="file" accept=".pdf,.jpg,.jpeg,.png" class="w-full border border-pink-400 p-2 rounded mb-4 bg-white text-black" />
+        </div>
+
+        <button type="submit" class="w-full bg-pink-600 text-white p-3 rounded-xl hover:bg-pink-700 transition">Enviar redação</button>
+      </form>
+    </section>
+
+    <section id="notas" class="mt-10 text-center text-white italic">
+      <p>Em breve: sistema de notas 🛠️</p>
+    </section>
+  </main>
+
+  <script>
+    function selecionarTema(tema) {
+      document.getElementById('tema').value = tema;
+    }
+
+    function alternarModoEnvio() {
+      const modo = document.getElementById('modoEnvio').value;
+      const campoTexto = document.getElementById('campoTexto');
+      const campoArquivo = document.getElementById('campoArquivo');
+
+      if (modo === 'texto') {
+        campoTexto.classList.remove('hidden');
+        campoArquivo.classList.add('hidden');
+      } else {
+        campoTexto.classList.add('hidden');
+        campoArquivo.classList.remove('hidden');
+      }
+    }
+  </script>
+</body>
+</html>
